@@ -3,6 +3,8 @@ package com.example.inventaireqrcode.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.inventaireqrcode.Gadget
+import com.example.inventaireqrcode.GadgetNfc
+import com.example.inventaireqrcode.GadgetQRCode
 import java.util.*
 
 class Repo {
@@ -27,5 +29,24 @@ class Repo {
 
         // remonter la liste
         gadgetsLiveData.value = gadgets
+    }
+
+    // récup un gadgetQRCode par son id
+    fun getGadgetQRCodeById(gadgetId: Int) : GadgetQRCode? {
+        return findGadgetById(gadgetId)
+    }
+
+    // récup un gadgetNFC par son id
+    fun getGadgetNfcById(gadgetId: Int) : GadgetNfc? {
+        return findGadgetById(gadgetId)
+    }
+
+    // fonction qui accepte des types génériques
+    @Suppress("UNCHECKED_CAST")
+    private fun <T : Gadget> findGadgetById(gadgetId: Int) : T? {
+        // find = qui prend un lambda en paramètre et qui demande un (predicat)
+        // predicat = condition qui doit être respecté pour que find renvoi l'objet qui nous interesse
+        // itère sur les gadgets du coup on récupère un gadget
+        return gadgets.find { gadget -> gadget.id == gadgetId } as T
     }
 }
