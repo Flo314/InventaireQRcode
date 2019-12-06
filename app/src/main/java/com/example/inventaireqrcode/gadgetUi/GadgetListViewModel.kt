@@ -24,7 +24,7 @@ class GadgetListViewModel(private val repo: Repo) : ViewModel() {
     init {
         // appel dès que le repo est modifié
         viewState.addSource(repo.getAllGadgets(), { gadgets ->
-            val oldState = viewState.value
+            val oldState = viewState.value!!
             viewState.value = oldState.copy(
                 hasGadgetChange = true,
                 gadgets = gadgets
