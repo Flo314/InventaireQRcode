@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/gadgetListFragment"
-        android:name="com.example.inventaireqrcode.gadgetUi.GadgetListFragment"
+        android:name="com.example.inventaireqrcode.gadgetUi.list.GadgetListFragment"
         android:label="Inventaire Gadgets"
         tools:layout="@layout/fragment_gadget_list" />
 </navigation>

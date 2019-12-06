@@ -1,4 +1,4 @@
-package com.example.inventaireqrcode.gadgetUi
+package com.example.inventaireqrcode.gadgetUi.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -32,10 +32,11 @@ class GadgetListViewModel(private val repo: Repo) : ViewModel() {
         })
 
         // initial state quand quelqu'un s'abonne
-        viewState.value = GadgetListViewState(
-            hasGadgetChange = false,
-            gadgets = emptyList()
-        )
+        viewState.value =
+            GadgetListViewState(
+                hasGadgetChange = false,
+                gadgets = emptyList()
+            )
     }
 
     // ajout d'un gadget

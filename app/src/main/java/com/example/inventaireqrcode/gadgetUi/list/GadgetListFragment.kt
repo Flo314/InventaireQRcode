@@ -1,4 +1,4 @@
-package com.example.inventaireqrcode.gadgetUi
+package com.example.inventaireqrcode.gadgetUi.list
 
 
 import android.os.Bundle
@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.inventaireqrcode.App
 
 import com.example.inventaireqrcode.R
+import com.example.inventaireqrcode.gadgetUi.GadgetUiViewModelFactory
 
 /**
  * A simple [Fragment] subclass.
@@ -31,7 +32,8 @@ class GadgetListFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         // exposer le viewModel sur le fragment
-        val factory = GadgetUiViewModelFactory(App.repo)
+        val factory =
+            GadgetUiViewModelFactory(App.repo)
         viewModel = ViewModelProviders.of(activity!!, factory).get(GadgetListViewModel::class.java)
         viewModel.getViewState().observe(this, Observer { updateUi(it!!) })
     }
