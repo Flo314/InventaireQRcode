@@ -12,6 +12,10 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 
 import com.example.inventaireqrcode.R
+import com.google.zxing.Result
+import kotlinx.android.synthetic.main.fragment_qrcode_scan.*
+import me.dm7.barcodescanner.zxing.ZXingScannerView
+import timber.log.Timber
 
 
 private const val PERMISSION_REQUEST_CAMERA = 1
@@ -19,7 +23,7 @@ private const val PERMISSION_REQUEST_CAMERA = 1
 /**
  * A simple [Fragment] subclass.
  */
-class QRCodeScanFragment : Fragment() {
+class QRCodeScanFragment : Fragment(), ZXingScannerView.ResultHandler {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,12 +33,38 @@ class QRCodeScanFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_qrcode_scan, container, false)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        // s'bonner sur les event que barecode scanner va nous renvoyer
+        qrcodeView.setResultHandler(this)
+    }
+
     override fun onResume() {
         super.onResume()
         // est qu'on a la permission
         if (!hasCameraPermission()) {
             requestCameraPermission()
+        } else {
+            startCamera()
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopCamera()
+    }
+
+    private fun startCamera() {
+        qrcodeView.startCamera()
+    }
+
+    private fun stopCamera() {
+        qrcodeView.stopCamera()
+    }
+
+    // notifier d'un résultat d'un scan
+    override fun handleResult(rawResult: Result) {
+        Timber.i("QRCode ${rawResult.text}")
     }
 
     private fun hasCameraPermission() =
@@ -52,11 +82,12 @@ class QRCodeScanFragment : Fragment() {
     ) {
         when (requestCode) {
             PERMISSION_REQUEST_CAMERA -> if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
+            startCamera()
             } else {
                 findNavController().popBackStack()
             }
         }
     }
+
 
 }
