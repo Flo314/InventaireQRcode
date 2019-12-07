@@ -48,10 +48,6 @@ class GadgetListFragment : Fragment(), GadgetListAdapter.GadgetListAdapterListen
         viewModel.getViewState().observe(this, Observer { updateUi(it!!) })
 
         fab.setOnClickListener { navigateToQRCodeSan() }
-
-        // test d'ajout de gadget dans la liste
-        viewModel.addGadget(GadgetQRCode(url = "https://qrcode"))
-        viewModel.addGadget(GadgetNfc(url = "https://nfc"))
     }
 
     // mise à jour quand on reçoit un état du viewstate
