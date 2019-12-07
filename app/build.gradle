@@ -18,7 +18,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        debug{
+        debug {
             buildConfigField "Boolean", "QRCODE_SIMULATOR_ENABLED", 'true'
         }
         // utiliser pour le playstore
