@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import com.example.inventaireqrcode.BuildConfig
 
 import com.example.inventaireqrcode.R
 import com.google.zxing.Result
@@ -37,6 +38,10 @@ class QRCodeScanFragment : Fragment(), ZXingScannerView.ResultHandler {
         super.onActivityCreated(savedInstanceState)
         // s'bonner sur les event que barecode scanner va nous renvoyer
         qrcodeView.setResultHandler(this)
+
+        if (BuildConfig.QRCODE_SIMULATOR_ENABLED) {
+            notifyScan("https://qrcode.scan")
+        }
     }
 
     override fun onResume() {
@@ -64,7 +69,13 @@ class QRCodeScanFragment : Fragment(), ZXingScannerView.ResultHandler {
 
     // notifier d'un résultat d'un scan
     override fun handleResult(rawResult: Result) {
-        Timber.i("QRCode ${rawResult.text}")
+        notifyScan(rawResult.text)
+    }
+
+    fun notifyScan(text: String) {
+        Timber.i("QRCode $text")
+        // ajout d'un gadget
+        findNavController().popBackStack()
     }
 
     private fun hasCameraPermission() =
