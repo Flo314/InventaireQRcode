@@ -9,5 +9,14 @@
         android:id="@+id/gadgetListFragment"
         android:name="com.example.inventaireqrcode.gadgetUi.list.GadgetListFragment"
         android:label="Inventaire Gadgets"
-        tools:layout="@layout/fragment_gadget_list" />
+        tools:layout="@layout/fragment_gadget_list" >
+        <action
+            android:id="@+id/action_gadgetListFragment_to_QRCodeScanFragment"
+            app:destination="@id/QRCodeScanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/QRCodeScanFragment"
+        android:name="com.example.inventaireqrcode.qrcode.QRCodeScanFragment"
+        android:label="QRCode San"
+        tools:layout="@layout/fragment_qrcode_scan" />
 </navigation>
