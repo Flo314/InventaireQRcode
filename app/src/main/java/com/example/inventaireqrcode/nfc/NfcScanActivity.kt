@@ -46,6 +46,7 @@ class NfcScanActivity : AppCompatActivity(), NfcProtocol.NfcReaderListener {
         dialog.listener = object: EnableNfcDialogFragment.EnableNfcDialogListener {
             override fun onPositiveClick() {
                 // démarrer les paramètres et gérer la rétrocompatibilité
+                startNfcSettingsActivity()
             }
 
             override fun onNegativeClick() {
@@ -55,6 +56,10 @@ class NfcScanActivity : AppCompatActivity(), NfcProtocol.NfcReaderListener {
         }
 
         dialog.show(supportFragmentManager, "EnableNfcDialog")
+    }
+
+    private fun startNfcSettingsActivity() {
+        startActivity(nfcSettingsIntent())
     }
 
     override fun onNfcDataReady(data: String) {
