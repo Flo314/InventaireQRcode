@@ -1,8 +1,11 @@
 package com.example.inventaireqrcode.nfc.protocol
 
 import android.content.Intent
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 
-interface NfcProtocol {
+interface NfcProtocol : LifecycleObserver{
 
     // forcer tout ceux qui implémente le nfcprotocol a avoir un listener
     val listener: NfcReaderListener?
@@ -13,7 +16,9 @@ interface NfcProtocol {
         fun onNfcDataReady(data: String)
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun lockNfc()
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun unlockNfc()
 
     fun readNfcTag(intent: Intent)
