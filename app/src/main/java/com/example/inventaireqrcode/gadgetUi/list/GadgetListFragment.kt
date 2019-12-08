@@ -1,6 +1,7 @@
 package com.example.inventaireqrcode.gadgetUi.list
 
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,8 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inventaireqrcode.*
 
 import com.example.inventaireqrcode.gadgetUi.GadgetUiViewModelFactory
+import com.example.inventaireqrcode.nfc.NfcScanActivity
 import kotlinx.android.synthetic.main.fragment_gadget_list.*
 import timber.log.Timber
+
+private const val REQUEST_SCAN_NFC_READ = 1
 
 /**
  * A simple [Fragment] subclass.
@@ -47,7 +51,7 @@ class GadgetListFragment : Fragment(), GadgetListAdapter.GadgetListAdapterListen
         viewModel = ViewModelProviders.of(activity!!, factory).get(GadgetListViewModel::class.java)
         viewModel.getViewState().observe(this, Observer { updateUi(it!!) })
 
-        fab.setOnClickListener { navigateToQRCodeSan() }
+        fab.setOnClickListener { navigateToNfcodeSanRead() }
     }
 
     // mise à jour quand on reçoit un état du viewstate
@@ -64,6 +68,11 @@ class GadgetListFragment : Fragment(), GadgetListAdapter.GadgetListAdapterListen
     private fun navigateToQRCodeSan() {
         val action = GadgetListFragmentDirections.actionGadgetListFragmentToQRCodeScanFragment()
         findNavController().navigate(action)
+    }
+
+    private fun navigateToNfcodeSanRead() {
+        val intent = Intent(context, NfcScanActivity::class.java)
+        startActivityForResult(intent, REQUEST_SCAN_NFC_READ)
     }
 
     override fun onGadgetClicked(gadget: Gadget) {
