@@ -13,10 +13,26 @@
         <action
             android:id="@+id/action_gadgetListFragment_to_QRCodeScanFragment"
             app:destination="@id/QRCodeScanFragment" />
+        <action
+            android:id="@+id/action_gadgetListFragment_to_gadgetQRCodeDetailFragment"
+            app:destination="@id/gadgetQRCodeDetailFragment" >
+            <argument android:defaultValue="0"
+                android:name="gadgetId" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/QRCodeScanFragment"
         android:name="com.example.inventaireqrcode.qrcode.QRCodeScanFragment"
         android:label="QRCode San"
         tools:layout="@layout/fragment_qrcode_scan" />
+    <fragment
+        android:id="@+id/gadgetQRCodeDetailFragment"
+        android:name="com.example.inventaireqrcode.gadgetUi.detailqrcode.GadgetQRCodeDetailFragment"
+        android:label="QRCode Detail"
+        tools:layout="@layout/fragment_gadget_qrcode_detail" >
+        <argument
+            android:name="gadgetId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
 </navigation>

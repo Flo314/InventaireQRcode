@@ -24,6 +24,9 @@ class GadgetQRCodeDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        gadgetId = GadgetQRCodeDetailFragmentArgs.fromBundle(arguments!!).gadgetId
+
         return inflater.inflate(R.layout.fragment_gadget_qrcode_detail, container, false)
     }
 

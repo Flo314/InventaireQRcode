@@ -51,7 +51,7 @@ class GadgetListFragment : Fragment(), GadgetListAdapter.GadgetListAdapterListen
         viewModel = ViewModelProviders.of(activity!!, factory).get(GadgetListViewModel::class.java)
         viewModel.getViewState().observe(this, Observer { updateUi(it!!) })
 
-        fab.setOnClickListener { navigateToNfcodeSanRead() }
+        fab.setOnClickListener { navigateToQRCodeSan() }
     }
 
     // mise à jour quand on reçoit un état du viewstate
@@ -76,7 +76,13 @@ class GadgetListFragment : Fragment(), GadgetListAdapter.GadgetListAdapterListen
     }
 
     override fun onGadgetClicked(gadget: Gadget) {
-
+        // quel est le type du gadget qu'on ai entrain de selectionner
+        when(gadget) {
+            is GadgetQRCode -> {
+                val action = GadgetListFragmentDirections.actionGadgetListFragmentToGadgetQRCodeDetailFragment(gadget.id)
+                findNavController().navigate(action)
+            }
+        }
     }
 
 
