@@ -1,5 +1,6 @@
 package com.example.inventaireqrcode.nfc
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.AnimationUtils
@@ -35,9 +36,25 @@ class NfcScanActivity : AppCompatActivity(), NfcProtocol.NfcReaderListener {
 
     override fun onNfcError(error: Throwable) {
         when (error) {
-            is DisabledNfcException -> Timber.e(error, "Disabled NFC ERROR")
+            is DisabledNfcException -> showEnableNfcDialog()
             else -> Timber.e(error, "Something went wrong with the NFC")
         }
+    }
+
+    private fun showEnableNfcDialog() {
+        val dialog = EnableNfcDialogFragment()
+        dialog.listener = object: EnableNfcDialogFragment.EnableNfcDialogListener {
+            override fun onPositiveClick() {
+                // démarrer les paramètres et gérer la rétrocompatibilité
+            }
+
+            override fun onNegativeClick() {
+                setResult(Activity.RESULT_CANCELED)
+                finish()
+            }
+        }
+
+        dialog.show(supportFragmentManager, "EnableNfcDialog")
     }
 
     override fun onNfcDataReady(data: String) {
