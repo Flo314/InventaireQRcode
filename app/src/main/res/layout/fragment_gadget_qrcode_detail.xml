@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".gadgetUi.detailqrcode.GadgetQRCodeDetailFragment">
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineScreenLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <ImageView
+        android:id="@+id/iconImageView"
+        android:layout_width="120dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_qrcode"
+        android:tint="@color/qrcode_icon"
+        app:layout_constraintDimensionRatio="h,1:1"
+        app:layout_constraintStart_toStartOf="@+id/guidelineScreenLeft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineQrcodeTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="144dp" />
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="QRCode"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintBottom_toBottomOf="@+id/iconImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guidelineQrcodeTag"
+        app:layout_constraintTop_toTopOf="@+id/iconImageView" />
+
+    <TextView
+        android:id="@+id/dateCreatedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guidelineQrcodeTag"
+        app:layout_constraintTop_toBottomOf="@+id/iconImageView"
+        tools:text="11/11/2019" />
+
+    <TextView
+        android:id="@+id/urlTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:autoLink="web"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guidelineQrcodeTag"
+        app:layout_constraintTop_toBottomOf="@+id/dateCreatedTextView"
+        tools:text="http://qrcode.com" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scan Date"
+        app:layout_constraintBaseline_toBaselineOf="@id/dateCreatedTextView"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineQrcodeTag"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guidelineScreenLeft" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="URL"
+        app:layout_constraintBaseline_toBaselineOf="@id/urlTextView"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineQrcodeTag"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guidelineScreenLeft" />
+</androidx.constraintlayout.widget.ConstraintLayout>

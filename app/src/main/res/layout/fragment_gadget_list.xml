@@ -24,5 +24,5 @@
         app:layout_anchorGravity="bottom|right|end"
         app:layout_anchor="@id/recyclerView"
         android:src="@drawable/ic_add"
-        app:backgroundTint="#FF5722" />
+        app:backgroundTint="#448AFF" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
