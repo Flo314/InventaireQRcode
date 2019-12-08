@@ -67,6 +67,13 @@ class NfcProtocolIntent(
     }
 
     override fun unlockNfc() {
+        Timber.d("Unlocking NFC")
+        if (state != State.LOCKED) {
+            Timber.w("Invalid state for unlock. state=$state")
+            return
+        }
+        nfcAdapter?.disableForegroundDispatch(activity)
+        switchToState(State.UNLOCKED)
 
     }
 
