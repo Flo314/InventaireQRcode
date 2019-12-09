@@ -9,6 +9,7 @@ import com.example.inventaireqrcode.repository.Repo
 // savoir quand on a rafraichit la liste
 data class GadgetListViewState(
     val hasGadgetChange: Boolean,
+    val isFabMenuOpen: Boolean,
     val gadgets: List<Gadget>
 )
 
@@ -35,6 +36,7 @@ class GadgetListViewModel(private val repo: Repo) : ViewModel() {
         viewState.value =
             GadgetListViewState(
                 hasGadgetChange = false,
+                isFabMenuOpen = false,
                 gadgets = emptyList()
             )
     }
@@ -42,5 +44,15 @@ class GadgetListViewModel(private val repo: Repo) : ViewModel() {
     // ajout d'un gadget
     fun addGadget(gadget: Gadget) {
         repo.addGadget(gadget)
+    }
+
+    // changer l'état du fabMenuOpen
+    fun toggleFabMenu() {
+        val oldState = viewState.value!!
+        viewState.value = oldState.copy(
+            isFabMenuOpen = !oldState.isFabMenuOpen,
+            // pas besoin de recharger la liste juste le fabMenu
+            hasGadgetChange = false
+        )
     }
 }

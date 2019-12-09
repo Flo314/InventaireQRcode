@@ -50,13 +50,15 @@ class QRCodeScanFragment : Fragment(), ZXingScannerView.ResultHandler {
         val factory = GadgetUiViewModelFactory(App.repo)
         viewModel = ViewModelProviders.of(activity!!, factory).get(GadgetListViewModel::class.java)
 
-        if (BuildConfig.QRCODE_SIMULATOR_ENABLED) {
+        // simulateur pour l'émulateur
+        /*if (BuildConfig.QRCODE_SIMULATOR_ENABLED) {
             notifyScan("https://qrcode.scan")
-        }
+        }*/
     }
 
     override fun onResume() {
         super.onResume()
+        qrcodeView.setResultHandler(this)
         // est qu'on a la permission
         if (!hasCameraPermission()) {
             requestCameraPermission()

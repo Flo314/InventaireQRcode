@@ -66,7 +66,7 @@ class GadgetListFragment : Fragment(), GadgetListAdapter.GadgetListAdapterListen
         fabQRCode.setOnClickListener { navigateToQRCodeSan() }
         fabNfcRead.setOnClickListener { navigateToNfcodeSanRead() }
 
-        fab.setOnClickListener { toggleFabMenu() }
+        fab.setOnClickListener { viewModel.toggleFabMenu() }
     }
 
     // mise à jour quand on reçoit un état du viewstate
@@ -77,6 +77,12 @@ class GadgetListFragment : Fragment(), GadgetListAdapter.GadgetListAdapterListen
             gadgets.clear()
             gadgets.addAll(state.gadgets)
             gadgetListAdapter.notifyDataSetChanged()
+        }
+
+        if (state.isFabMenuOpen) {
+            openFabMenu()
+        } else {
+            closeFabMenu()
         }
     }
 
@@ -127,18 +133,6 @@ class GadgetListFragment : Fragment(), GadgetListAdapter.GadgetListAdapterListen
             .addToBackStack("GadgetDetail")
             .replace(R.id.navHostFragment, fragment)
             .commit()
-    }
-
-    // click fabMenu
-    private fun toggleFabMenu() {
-        // si fermé
-        if (!isFabMenuOpen) {
-            openFabMenu()
-        } else {
-            closeFabMenu()
-        }
-
-        isFabMenuOpen = !isFabMenuOpen
     }
 
     private fun openFabMenu() {
