@@ -13,3 +13,6 @@ fun Date.toFormattedString() = dateFormatter.format(this)
 // fonction d'extension pour les transitions
 fun View.setTransitionNameCompat(prefix: String, id: Any) =
     ViewCompat.setTransitionName(this, "$prefix$id")
+
+fun View.getTransitionNameCompat() =
+    ViewCompat.getTransitionName(this) ?: ""
