@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootSmall"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="23dp"
+    android:layout_marginBottom="165dp"
+    android:gravity="center_vertical"
+    app:layout_anchor="@id/recyclerView"
+    app:layout_anchorGravity="bottom|right|end">
+
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        android:text="QRCode" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:clickable="true"
+        android:elevation="0dp"
+        android:focusable="true"
+        android:src="@drawable/ic_qrcode"
+        app:fabSize="mini" />
+
+</LinearLayout>
