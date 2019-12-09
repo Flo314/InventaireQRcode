@@ -75,7 +75,10 @@ class GadgetListFragment : Fragment(), GadgetListAdapter.GadgetListAdapterListen
         startActivityForResult(intent, REQUEST_SCAN_NFC_READ)
     }
 
-    override fun onGadgetClicked(gadget: Gadget) {
+    override fun onGadgetClicked(
+        gadget: Gadget,
+        itemView: View
+    ) {
         // quel est le type du gadget qu'on ai entrain de selectionner
         when(gadget) {
             is GadgetQRCode -> {

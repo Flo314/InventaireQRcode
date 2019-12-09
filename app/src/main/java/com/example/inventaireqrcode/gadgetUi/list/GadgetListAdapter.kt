@@ -15,6 +15,7 @@ import com.example.inventaireqrcode.Gadget
 import com.example.inventaireqrcode.GadgetNfc
 import com.example.inventaireqrcode.GadgetQRCode
 import com.example.inventaireqrcode.R
+import com.example.inventaireqrcode.widgets.setTransitionNameCompat
 import com.example.inventaireqrcode.widgets.toFormattedString
 
 class GadgetListAdapter(
@@ -27,7 +28,10 @@ class GadgetListAdapter(
     private val nfcColor =  ColorStateList.valueOf(ResourcesCompat.getColor(context.resources, R.color.nfc_icon, null))
 
     interface GadgetListAdapterListener {
-        fun onGadgetClicked(gadget: Gadget)
+        fun onGadgetClicked(
+            gadget: Gadget,
+            itemView: View
+        )
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -65,6 +69,11 @@ class GadgetListAdapter(
             }
 
             dateCreated.text = gadget.dateCreated.toFormattedString()
+
+            // étiquette de transition (nom unique)
+            urlTextView.setTransitionNameCompat("url", gadget.id)
+            iconView.setTransitionNameCompat("icon", gadget.id)
+            dateCreated.setTransitionNameCompat("date", gadget.id)
         }
     }
 
@@ -73,7 +82,7 @@ class GadgetListAdapter(
 
     // click sur cardview
     override fun onClick(v: View) {
-        listener?.onGadgetClicked(v.tag as Gadget)
+        listener?.onGadgetClicked(v.tag as Gadget, v)
     }
 
 }
