@@ -4,8 +4,8 @@
     android:id="@+id/rootSmall"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginRight="23dp"
-    android:layout_marginBottom="165dp"
+    android:layout_marginRight="@dimen/fab_small_margin"
+    android:layout_marginBottom="@dimen/fab_small_margin"
     android:gravity="center_vertical"
     app:layout_anchor="@id/recyclerView"
     app:layout_anchorGravity="bottom|right|end">
@@ -25,6 +25,7 @@
         android:layout_marginLeft="10dp"
         android:clickable="true"
         android:elevation="0dp"
+        app:backgroundTint="#448AFF"
         android:focusable="true"
         android:src="@drawable/ic_qrcode"
         app:fabSize="mini" />

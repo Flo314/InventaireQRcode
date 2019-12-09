@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -20,6 +22,7 @@ import com.example.inventaireqrcode.gadgetUi.GadgetUiViewModelFactory
 import com.example.inventaireqrcode.gadgetUi.detailqrcode.GadgetQRCodeDetailFragment
 import com.example.inventaireqrcode.gadgetUi.detailqrcode.GadgetQRCodeDetailFragmentArgs
 import com.example.inventaireqrcode.nfc.NfcScanActivity
+import com.example.inventaireqrcode.widgets.FabSmall
 import com.example.inventaireqrcode.widgets.getTransitionNameCompat
 import kotlinx.android.synthetic.main.fragment_gadget_list.*
 import kotlinx.android.synthetic.main.item_gadget.view.*
@@ -36,6 +39,8 @@ class GadgetListFragment : Fragment(), GadgetListAdapter.GadgetListAdapterListen
 
     private lateinit var gadgetListAdapter: GadgetListAdapter
     private val gadgets = mutableListOf<Gadget>()
+
+    private var isFabMenuOpen = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,7 +63,10 @@ class GadgetListFragment : Fragment(), GadgetListAdapter.GadgetListAdapterListen
         viewModel = ViewModelProviders.of(activity!!, factory).get(GadgetListViewModel::class.java)
         viewModel.getViewState().observe(this, Observer { updateUi(it!!) })
 
-        fab.setOnClickListener { navigateToQRCodeSan() }
+        fabQRCode.setOnClickListener { navigateToQRCodeSan() }
+        fabNfcRead.setOnClickListener { navigateToNfcodeSanRead() }
+
+        fab.setOnClickListener { toggleFabMenu() }
     }
 
     // mise à jour quand on reçoit un état du viewstate
@@ -119,6 +127,57 @@ class GadgetListFragment : Fragment(), GadgetListAdapter.GadgetListAdapterListen
             .addToBackStack("GadgetDetail")
             .replace(R.id.navHostFragment, fragment)
             .commit()
+    }
+
+    // click fabMenu
+    private fun toggleFabMenu() {
+        // si fermé
+        if (!isFabMenuOpen) {
+            openFabMenu()
+        } else {
+            closeFabMenu()
+        }
+
+        isFabMenuOpen = !isFabMenuOpen
+    }
+
+    private fun openFabMenu() {
+        ViewCompat.animate(fab)
+            .rotation(45f)
+            .setDuration(300)
+            .setInterpolator(OvershootInterpolator(10f))
+            .start()
+
+        animateShowFab(fabQRCode)
+        animateShowFab(fabNfcRead)
+    }
+
+    private fun closeFabMenu() {
+        ViewCompat.animate(fab)
+            .rotation(0f)
+            .setDuration(300)
+            .setInterpolator(OvershootInterpolator(10f))
+            .start()
+        animateHideFab(fabQRCode)
+        animateHideFab(fabNfcRead)
+    }
+
+    private fun animateShowFab(fab: FabSmall) {
+        ViewCompat.animate(fab)
+            .translationY(-fab.offsetYAnimation)
+            .withStartAction { fab.visibility = View.VISIBLE }
+            .withEndAction {
+                fab.labelView.animate()
+                    .alpha(1.0f)
+                    .duration = 200
+            }
+    }
+
+    private fun animateHideFab(fab: FabSmall) {
+        ViewCompat.animate(fab)
+            .translationY(0f)
+            .withStartAction { fab.labelView.animate().alpha(0f) }
+            .withEndAction { fab.visibility = View.GONE }
     }
 
 }
